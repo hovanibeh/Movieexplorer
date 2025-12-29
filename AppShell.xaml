@@ -3,12 +3,11 @@
     x:Class="MovieExplorer.AppShell"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:local="clr-namespace:MovieExplorer"
-    Title="MovieExplorer">
+    xmlns:pages="clr-namespace:MovieExplorer.Pages"
+    Shell.FlyoutBehavior="Flyout">
 
-    <ShellContent
-        Title="Home"
-        ContentTemplate="{DataTemplate local:MainPage}"
-        Route="MainPage" />
+    <FlyoutItem Title="Movies">
+        <ShellContent ContentTemplate="{DataTemplate pages:MoviesPage}" />
+    </FlyoutItem>
 
 </Shell>
