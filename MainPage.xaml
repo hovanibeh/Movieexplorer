@@ -1,0 +1,130 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MovieExplorer.MainPage">
+
+    
+    <Grid RowDefinitions="Auto,Auto,*,Auto" Padding="10">
+       
+        <Grid Grid.Row="0" ColumnDefinitions="*,Auto" Margin="0,0,0,10">
+            <Label Text="{Binding WelcomeMessage}"
+              FontSize="24"
+              FontAttributes="Bold"
+              VerticalOptions="Center"/>
+            <Button Grid.Column="1"
+               Text=" Settings"
+               Clicked="OnSettingsClicked"
+               BackgroundColor="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource Secondary}}"/>
+        </Grid>
+        
+        <Grid Grid.Row="1" RowDefinitions="Auto,Auto" ColumnDefinitions="*,Auto" Margin="0,0,0,10">
+            <SearchBar Grid.Row="0" Grid.ColumnSpan="2"
+                  Placeholder="Search by title..."
+                  Text="{Binding SearchText}"
+                  SearchCommand="{Binding SearchCommand}"
+                  TextChanged="OnSearchTextChanged"/>
+            <Picker Grid.Row="1" Grid.Column="0"
+               Title="Filter by Genre"
+               ItemsSource="{Binding Genres}"
+               SelectedItem="{Binding SelectedGenre}"
+               Margin="0,5,5,0"/>
+            <Picker Grid.Row="1" Grid.Column="1"
+               Title="Sort By"
+               ItemsSource="{Binding SortOptions}"
+               SelectedItem="{Binding SelectedSort}"
+               Margin="5,5,0,0"
+               WidthRequest="120"/>
+        </Grid>
+        <!-- Movies CollectionView -->
+        <RefreshView Grid.Row="2" IsRefreshing="{Binding IsRefreshing}" Command="{Binding RefreshCommand}">
+            <CollectionView ItemsSource="{Binding FilteredMovies}"
+                      SelectionMode="Single"
+                      SelectionChanged="OnMovieSelected">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Frame Margin="5"
+                          Padding="10"
+                          BackgroundColor="{AppThemeBinding Light=White, Dark=#2b2b2b}"
+                          BorderColor="{AppThemeBinding Light=LightGray, Dark=Gray}"
+                          CornerRadius="10">
+                            <Frame.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="OnMovieTapped" CommandParameter="{Binding .}"/>
+                            </Frame.GestureRecognizers>
+                            <Grid ColumnDefinitions="60,*,Auto" RowDefinitions="Auto,Auto,Auto">
+                                <!-- Emoji -->
+                                <Label Grid.Column="0" Grid.RowSpan="3"
+                                  Text="{Binding Emoji}"
+                                  FontSize="48"
+                                  HorizontalOptions="Center"
+                                  VerticalOptions="Center"/>
+                                <!-- Title -->
+                                <Label Grid.Column="1" Grid.Row="0"
+                                  Text="{Binding Title}"
+                                  FontSize="{Binding Source={x:Reference MainPageRef}, Path=BindingContext.FontSize}"
+                                  FontAttributes="Bold"
+                                  LineBreakMode="TailTruncation"/>
+                                <!-- Year and Genre -->
+                                <Label Grid.Column="1" Grid.Row="1"
+                                  FontSize="{Binding Source={x:Reference MainPageRef}, Path=BindingContext.SmallFontSize}">
+                                    <Label.FormattedText>
+                                        <FormattedString>
+                                            <Span Text="{Binding Year}"/>
+                                            <Span Text=" • "/>
+                                            <Span Text="{Binding GenresString}"/>
+                                        </FormattedString>
+                                    </Label.FormattedText>
+                                </Label>
+                                <!-- Director and Rating -->
+                                <Label Grid.Column="1" Grid.Row="2"
+                                  FontSize="{Binding Source={x:Reference MainPageRef}, Path=BindingContext.SmallFontSize}"
+                                  TextColor="Gray">
+                                    <Label.FormattedText>
+                                        <FormattedString>
+                                            <Span Text="⭐ "/>
+                                            <Span Text="{Binding ImdbRating}"/>
+                                            <Span Text=" • "/>
+                                            <Span Text="{Binding Director}"/>
+                                        </FormattedString>
+                                    </Label.FormattedText>
+                                </Label>
+                                <!-- Favorite Button -->
+                                <Button Grid.Column="2" Grid.RowSpan="3"
+                                   Text="{Binding FavoriteIcon}"
+                                   FontSize="24"
+                                   BackgroundColor="Transparent"
+                                   Clicked="OnFavoriteClicked"
+                                   CommandParameter="{Binding .}"
+                                   VerticalOptions="Center"/>
+                            </Grid>
+                        </Frame>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+                <CollectionView.EmptyView>
+                    <StackLayout VerticalOptions="Center" HorizontalOptions="Center" Padding="20">
+                        <Label Text="🎬" FontSize="72" HorizontalOptions="Center"/>
+                        <Label Text="No movies found"
+                          FontSize="20"
+                          HorizontalOptions="Center"
+                          Margin="0,10,0,0"/>
+                        <Label Text="Try adjusting your search or filters"
+                          FontSize="14"
+                          TextColor="Gray"
+                          HorizontalOptions="Center"/>
+                    </StackLayout>
+                </CollectionView.EmptyView>
+            </CollectionView>
+        </RefreshView>
+        <!-- Bottom Navigation -->
+        <Grid Grid.Row="3" ColumnDefinitions="*,*" Margin="0,10,0,0">
+            <Button Grid.Column="0"
+               Text="History"
+               Clicked="OnHistoryClicked"
+               Margin="0,0,5,0"/>
+            <Button Grid.Column="1"
+               Text="Favorites"
+               Clicked="OnFavoritesClicked"
+               Margin="5,0,0,0"/>
+        </Grid>
+    </Grid>
+    ```
+</ContentPage>
