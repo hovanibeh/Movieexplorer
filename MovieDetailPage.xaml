@@ -1,0 +1,128 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+Title="Movie Details">
+    ```
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="20">
+            <!-- Movie Emoji Header -->
+            <Frame BackgroundColor="{AppThemeBinding Light=#f0f0f0, Dark=#1a1a1a}"
+              BorderColor="Transparent"
+              CornerRadius="20"
+              Padding="30"
+              HorizontalOptions="Center">
+                <Label Text="{Binding Movie.Emoji}"
+                  FontSize="100"
+                  HorizontalOptions="Center"/>
+            </Frame>
+            <!-- Title and Year -->
+            <VerticalStackLayout Spacing="5">
+                <Label Text="{Binding Movie.Title}"
+                  FontSize="28"
+                  FontAttributes="Bold"
+                  HorizontalOptions="Center"
+                  HorizontalTextAlignment="Center"/>
+                <Label Text="{Binding Movie.Year}"
+                  FontSize="18"
+                  TextColor="Gray"
+                  HorizontalOptions="Center"/>
+            </VerticalStackLayout>
+            <!-- Rating and Favorite -->
+            <Grid ColumnDefinitions="*,Auto,*" Margin="0,10,0,0">
+                <Frame Grid.Column="1"
+                  BorderColor="{AppThemeBinding Light=LightGray, Dark=Gray}"
+                  BackgroundColor="{AppThemeBinding Light=White, Dark=#2b2b2b}"
+                  CornerRadius="15"
+                  Padding="15,10">
+                    <HorizontalStackLayout Spacing="15">
+                        <Label FontSize="24">
+                            <Label.FormattedText>
+                                <FormattedString>
+                                    <Span Text="⭐ "/>
+                                    <Span Text="{Binding Movie.ImdbRating}"/>
+                                </FormattedString>
+                            </Label.FormattedText>
+                        </Label>
+                        <Button Text="{Binding FavoriteIcon}"
+                           FontSize="28"
+                           BackgroundColor="Transparent"
+                           Clicked="OnFavoriteClicked"/>
+                    </HorizontalStackLayout>
+                </Frame>
+            </Grid>
+            <!-- Director -->
+            <Frame BorderColor="{AppThemeBinding Light=LightGray, Dark=Gray}"
+              BackgroundColor="{AppThemeBinding Light=White, Dark=#2b2b2b}"
+              CornerRadius="10"
+              Padding="15">
+                <VerticalStackLayout Spacing="5">
+                    <Label Text="Director"
+                      FontSize="12"
+                      TextColor="Gray"
+                      FontAttributes="Bold"/>
+                    <Label Text="{Binding Movie.Director}"
+                      FontSize="18"/>
+                </VerticalStackLayout>
+            </Frame>
+            <!-- Genres -->
+            <Frame BorderColor="{AppThemeBinding Light=LightGray, Dark=Gray}"
+              BackgroundColor="{AppThemeBinding Light=White, Dark=#2b2b2b}"
+              CornerRadius="10"
+              Padding="15">
+                <VerticalStackLayout Spacing="10">
+                    <Label Text="Genres"
+                      FontSize="12"
+                      TextColor="Gray"
+                      FontAttributes="Bold"/>
+                    <FlexLayout BindableLayout.ItemsSource="{Binding Movie.Genres}"
+                           Wrap="Wrap"
+                           JustifyContent="Start"
+                           AlignItems="Start">
+                        <BindableLayout.ItemTemplate>
+                            <DataTemplate>
+                                <Frame BackgroundColor="{AppThemeBinding Light=#e0e0e0, Dark=#404040}"
+                                  BorderColor="Transparent"
+                                  CornerRadius="15"
+                                  Padding="12,6"
+                                  Margin="0,0,8,8">
+                                    <Label Text="{Binding .}"
+                                      FontSize="14"/>
+                                </Frame>
+                            </DataTemplate>
+                        </BindableLayout.ItemTemplate>
+                    </FlexLayout>
+                </VerticalStackLayout>
+            </Frame>
+            <!-- Additional Info -->
+            <Frame BorderColor="{AppThemeBinding Light=LightGray, Dark=Gray}"
+              BackgroundColor="{AppThemeBinding Light=White, Dark=#2b2b2b}"
+              CornerRadius="10"
+              Padding="15">
+                <VerticalStackLayout Spacing="10">
+                    <Label Text="Movie Information"
+                      FontSize="12"
+                      TextColor="Gray"
+                      FontAttributes="Bold"/>
+                    <Grid ColumnDefinitions="120,*" RowSpacing="8">
+                        <Label Grid.Row="0" Grid.Column="0"
+                          Text="Release Year:"
+                          FontAttributes="Bold"/>
+                        <Label Grid.Row="0" Grid.Column="1"
+                          Text="{Binding Movie.Year}"/>
+                        <Label Grid.Row="1" Grid.Column="0"
+                          Text="IMDB Rating:"
+                          FontAttributes="Bold"/>
+                        <Label Grid.Row="1" Grid.Column="1"
+                          Text="{Binding Movie.ImdbRating, StringFormat='{0}/10'}"/>
+                        <Label Grid.Row="2" Grid.Column="0"
+                          Text="Genre Count:"
+                          FontAttributes="Bold"/>
+                        <Label Grid.Row="2" Grid.Column="1"
+                          Text="{Binding GenreCount}"/>
+                    </Grid>
+                </VerticalStackLayout>
+            </Frame>
+        </VerticalStackLayout>
+    </ScrollView>
+    ```
+</ContentPage>
