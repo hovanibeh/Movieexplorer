@@ -1,0 +1,78 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MovieExplorer.Pages.SettingsPage"
+             Title="Settings">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="20">
+
+            <!-- Header -->
+            <Label Text="⚙️ Settings" 
+                   FontSize="28" 
+                   FontAttributes="Bold"
+                   HorizontalOptions="Center"
+                   Margin="0,10,0,20"/>
+
+            <!-- User Info -->
+            <Border Padding="15" StrokeThickness="1" Stroke="LightGray">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="10"/>
+                </Border.StrokeShape>
+                <VerticalStackLayout Spacing="10">
+                    <Label Text="User Profile" FontSize="18" FontAttributes="Bold"/>
+                    <Label x:Name="UserNameLabel" FontSize="16" TextColor="Gray"/>
+                </VerticalStackLayout>
+            </Border>
+
+            <!-- Dark Mode Toggle -->
+            <Border Padding="15" StrokeThickness="1" Stroke="LightGray">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="10"/>
+                </Border.StrokeShape>
+                <Grid ColumnDefinitions="*,Auto">
+                    <VerticalStackLayout Grid.Column="0" Spacing="5">
+                        <Label Text="Dark Mode" FontSize="16" FontAttributes="Bold"/>
+                        <Label Text="Switch between light and dark theme" FontSize="12" TextColor="Gray"/>
+                    </VerticalStackLayout>
+                    <Switch x:Name="DarkModeSwitch" 
+                            Grid.Column="1"
+                            VerticalOptions="Center"
+                            Toggled="OnDarkModeToggled"/>
+                </Grid>
+            </Border>
+
+            <!-- Font Size Picker -->
+            <Border Padding="15" StrokeThickness="1" Stroke="LightGray">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="10"/>
+                </Border.StrokeShape>
+                <VerticalStackLayout Spacing="10">
+                    <Label Text="Font Size" FontSize="16" FontAttributes="Bold"/>
+                    <Picker x:Name="FontSizePicker" 
+                            SelectedIndexChanged="OnFontSizeChanged">
+                        <Picker.Items>
+                            <x:String>Small</x:String>
+                            <x:String>Medium</x:String>
+                            <x:String>Large</x:String>
+                        </Picker.Items>
+                    </Picker>
+                </VerticalStackLayout>
+            </Border>
+
+            <!-- Statistics -->
+            <Border Padding="15" StrokeThickness="1" Stroke="LightBlue">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="10"/>
+                </Border.StrokeShape>
+                <VerticalStackLayout Spacing="10">
+                    <Label Text="📊 Your Statistics" FontSize="18" FontAttributes="Bold"/>
+                    <Label x:Name="FavouritesCountLabel" FontSize="14"/>
+                    <Label x:Name="ViewedCountLabel" FontSize="14"/>
+                </VerticalStackLayout>
+            </Border>
+
+        </VerticalStackLayout>
+    </ScrollView>
+
+</ContentPage>

@@ -8,7 +8,7 @@
     <VerticalStackLayout Padding="30" Spacing="25" VerticalOptions="Center">
 
         <!-- App Title with emoji -->
-        <Label Text="🎬 Movie Explorer" 
+        <Label Text="🎬 HOVAN'S Movie Explorer" 
                FontSize="40" 
                HorizontalOptions="Center"
                FontAttributes="Bold"/>
