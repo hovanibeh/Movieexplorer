@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+
 using System.Text.Json;
 using MovieExplorer.Models;
 
@@ -75,7 +76,7 @@ namespace MovieExplorer.Services
             catch (Exception ex)
             {
                 // If download fails, show error and return empty list
-                System.Diagnostics.Debug.WriteLine($"Error downloading movies:");
+                System.Diagnostics.Debug.WriteLine($"Error downloading movies: {ex.Message}");
                 return new List<Movie>();
             }
         }
