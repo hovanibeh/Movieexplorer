@@ -6,8 +6,22 @@
     xmlns:pages="clr-namespace:MovieExplorer.Pages"
     Shell.FlyoutBehavior="Flyout">
 
+    <!-- Menu items in the hamburger menu -->
+
     <FlyoutItem Title="Movies">
         <ShellContent ContentTemplate="{DataTemplate pages:MoviesPage}" />
+    </FlyoutItem>
+
+    <FlyoutItem Title="Favourites">
+        <ShellContent ContentTemplate="{DataTemplate pages:FavouritesPage}" />
+    </FlyoutItem>
+
+    <FlyoutItem Title="History">
+        <ShellContent ContentTemplate="{DataTemplate pages:HistoryPage}" />
+    </FlyoutItem>
+
+    <FlyoutItem Title="Settings">
+        <ShellContent ContentTemplate="{DataTemplate pages:SettingsPage}" />
     </FlyoutItem>
 
 </Shell>
