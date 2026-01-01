@@ -1,11 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using MovieExplorer.Models;
+﻿using MovieExplorer.Models;
 using System.Collections.ObjectModel;
-
 
 namespace MovieExplorer.Pages
 {
@@ -111,7 +105,7 @@ namespace MovieExplorer.Pages
             UpdateDisplayedMovies(sorted);
         }
 
-        // Called when user taps a movie
+        // Called when user taps a movie - UPDATED VERSION
         private async void OnMovieSelected(object sender, SelectionChangedEventArgs e)
         {
             if (e.CurrentSelection.FirstOrDefault() is Movie selectedMovie)
@@ -119,13 +113,13 @@ namespace MovieExplorer.Pages
                 // Clear the selection (so it doesn't stay highlighted)
                 MoviesCollectionView.SelectedItem = null;
 
-                // Go to detail page with this movie
+                // Navigate to detail page with this movie
                 var navigationParameter = new Dictionary<string, object>
                 {
                     { "Movie", selectedMovie }
                 };
 
-                
+                await Shell.Current.GoToAsync(nameof(MovieDetailPage), navigationParameter);
             }
         }
     }
