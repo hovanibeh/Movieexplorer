@@ -4,10 +4,10 @@
              x:Class="MovieExplorer.Pages.WelcomePage"
              Title="Welcome">
 
-    <!-- VerticalStackLayout = arranges items from top to bottom -->
+    <!-- VerticalStackLayout -->
     <VerticalStackLayout Padding="30" Spacing="25" VerticalOptions="Center">
 
-        <!-- App Title with emoji -->
+       
         <Label Text="🎬 HOVAN'S Movie Explorer" 
                FontSize="40" 
                HorizontalOptions="Center"
@@ -19,7 +19,7 @@
                HorizontalOptions="Center"
                Margin="0,20,0,20"/>
 
-        <!-- Text box for name -->
+       
         <Entry x:Name="NameEntry" 
                Placeholder="Enter your name"
                FontSize="20"
