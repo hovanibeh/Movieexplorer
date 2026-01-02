@@ -5,13 +5,87 @@
     <Application.Resources>
         <ResourceDictionary>
 
-            <!-- Define colors -->
-            <Color x:Key="PageBackgroundColor">#F5F5F5</Color>
-            <Color x:Key="PrimaryColor">#512BD4</Color>
+            <!-- ========================================
+                 DYNAMIC COLORS - Change based on theme
+                 ======================================== -->
 
-            <!-- Style for all ContentPages -->
+            <!-- Page Background Colors -->
+            <Color x:Key="PageBackgroundColorLight">#F5F5F5</Color>
+            <Color x:Key="PageBackgroundColorDark">#1E1E1E</Color>
+
+            <!-- Primary Text (Headings, Titles) -->
+            <Color x:Key="PrimaryTextColorLight">#000000</Color>
+            <Color x:Key="PrimaryTextColorDark">#FFFFFF</Color>
+
+            <!-- Secondary Text (Subtitles, Descriptions) -->
+            <Color x:Key="SecondaryTextColorLight">#666666</Color>
+            <Color x:Key="SecondaryTextColorDark">#CCCCCC</Color>
+
+            <!-- Border Colors -->
+            <Color x:Key="BorderColorLight">#CCCCCC</Color>
+            <Color x:Key="BorderColorDark">#444444</Color>
+
+            <!-- Card/Box Background -->
+            <Color x:Key="CardBackgroundLight">#FFFFFF</Color>
+            <Color x:Key="CardBackgroundDark">#2D2D2D</Color>
+
+
+            <!-- ========================================
+                 GLOBAL STYLES
+                 ======================================== -->
+
+            <!-- ALL ContentPages -->
             <Style TargetType="ContentPage" ApplyToDerivedTypes="True">
-                <Setter Property="BackgroundColor" Value="{StaticResource PageBackgroundColor}" />
+                <Setter Property="BackgroundColor" 
+                        Value="{AppThemeBinding Light={StaticResource PageBackgroundColorLight}, 
+                                                Dark={StaticResource PageBackgroundColorDark}}" />
+            </Style>
+
+            <!-- ALL Labels -->
+            <Style TargetType="Label">
+                <Setter Property="TextColor" 
+                        Value="{AppThemeBinding Light={StaticResource PrimaryTextColorLight}, 
+                                                Dark={StaticResource PrimaryTextColorDark}}" />
+            </Style>
+
+            <!-- ALL Borders -->
+            <Style TargetType="Border">
+                <Setter Property="Stroke" 
+                        Value="{AppThemeBinding Light={StaticResource BorderColorLight}, 
+                                                Dark={StaticResource BorderColorDark}}" />
+                <Setter Property="BackgroundColor" 
+                        Value="{AppThemeBinding Light={StaticResource CardBackgroundLight}, 
+                                                Dark={StaticResource CardBackgroundDark}}" />
+            </Style>
+
+            <!-- ALL Buttons (keep readable in both modes) -->
+            <Style TargetType="Button">
+                <Setter Property="BackgroundColor" Value="#512BD4" />
+                <Setter Property="TextColor" Value="White" />
+            </Style>
+
+            <!-- ALL SearchBars -->
+            <Style TargetType="SearchBar">
+                <Setter Property="TextColor" 
+                        Value="{AppThemeBinding Light={StaticResource PrimaryTextColorLight}, 
+                                                Dark={StaticResource PrimaryTextColorDark}}" />
+                <Setter Property="PlaceholderColor" 
+                        Value="{AppThemeBinding Light={StaticResource SecondaryTextColorLight}, 
+                                                Dark={StaticResource SecondaryTextColorDark}}" />
+            </Style>
+
+            <!-- ALL Entry fields -->
+            <Style TargetType="Entry">
+                <Setter Property="TextColor" 
+                        Value="{AppThemeBinding Light={StaticResource PrimaryTextColorLight}, 
+                                                Dark={StaticResource PrimaryTextColorDark}}" />
+            </Style>
+
+            <!-- ALL Pickers -->
+            <Style TargetType="Picker">
+                <Setter Property="TextColor" 
+                        Value="{AppThemeBinding Light={StaticResource PrimaryTextColorLight}, 
+                                                Dark={StaticResource PrimaryTextColorDark}}" />
             </Style>
 
         </ResourceDictionary>
