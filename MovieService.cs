@@ -9,84 +9,92 @@ using MovieExplorer.Models;
 
 namespace MovieExplorer.Services
 {
-    // This class handles downloading and caching movie data
     public class MovieService
     {
-        // Tool to download from internet
         private readonly HttpClient _httpClient;
-
-        // Where to save the movie file on the phone
         private readonly string _cacheFilePath;
-
-        // The URL where movies are stored online
         private const string MovieJsonUrl = "https://raw.githubusercontent.com/DonH-ITS/jsonfiles/refs/heads/main/moviesemoji.json";
 
-        // Constructor - runs when we create a MovieService
         public MovieService()
         {
             _httpClient = new HttpClient();
-
-            // FileSystem.AppDataDirectory = special folder for our app's data
-            // We'll save movies in a file called "movies_cache.json"
             _cacheFilePath = Path.Combine(FileSystem.AppDataDirectory, "movies_cache.json");
+
+            // DEBUG: Show where we're saving files
+            System.Diagnostics.Debug.WriteLine($"Cache file path: {_cacheFilePath}");
         }
 
-        // Main method: Get all movies (download first time, then load from cache)
         public async Task<List<Movie>> GetMoviesAsync()
         {
             try
             {
-                // Does the cache file exist on the phone?
+                System.Diagnostics.Debug.WriteLine("=== GetMoviesAsync called ===");
+
+                // Check if cache file exists
                 if (File.Exists(_cacheFilePath))
                 {
-                    // YES - Load from cache (fast!)
+                    System.Diagnostics.Debug.WriteLine("Cache file exists, loading from cache...");
                     string cachedJson = await File.ReadAllTextAsync(_cacheFilePath);
+
+                    System.Diagnostics.Debug.WriteLine($"Cache file size: {cachedJson.Length} characters");
+
                     var movies = JsonSerializer.Deserialize<List<Movie>>(cachedJson);
+
+                    System.Diagnostics.Debug.WriteLine($"Loaded {movies?.Count ?? 0} movies from cache");
+
                     return movies ?? new List<Movie>();
                 }
                 else
                 {
-                    // NO - Download from internet (first time only)
+                    System.Diagnostics.Debug.WriteLine("No cache file, downloading from web...");
                     return await DownloadAndCacheMoviesAsync();
                 }
             }
             catch (Exception ex)
             {
-                // If something goes wrong, show error and return empty list
-                System.Diagnostics.Debug.WriteLine($"Error loading movies: {ex.Message}");
+                System.Diagnostics.Debug.WriteLine($"ERROR in GetMoviesAsync: {ex.Message}");
+                System.Diagnostics.Debug.WriteLine($"Stack trace: {ex.StackTrace}");
                 return new List<Movie>();
             }
         }
 
-        // Download movies from internet and save to phone
         private async Task<List<Movie>> DownloadAndCacheMoviesAsync()
         {
             try
             {
-                // Step 1: Download JSON text from URL
+                System.Diagnostics.Debug.WriteLine($"Downloading from: {MovieJsonUrl}");
+
+                // Download JSON from URL
                 string json = await _httpClient.GetStringAsync(MovieJsonUrl);
 
-                // Step 2: Save to phone (cache it)
+                System.Diagnostics.Debug.WriteLine($"Downloaded {json.Length} characters");
+
+                // Save to cache file
                 await File.WriteAllTextAsync(_cacheFilePath, json);
 
-                // Step 3: Convert JSON text to List of Movie objects
+                System.Diagnostics.Debug.WriteLine("Saved to cache file");
+
+                // Parse and return
                 var movies = JsonSerializer.Deserialize<List<Movie>>(json);
+
+                System.Diagnostics.Debug.WriteLine($"Parsed {movies?.Count ?? 0} movies");
+
                 return movies ?? new List<Movie>();
             }
             catch (Exception ex)
             {
-                // If download fails, show error and return empty list
-                System.Diagnostics.Debug.WriteLine($"Error downloading movies: {ex.Message}");
+                System.Diagnostics.Debug.WriteLine($"ERROR downloading movies: {ex.Message}");
+                System.Diagnostics.Debug.WriteLine($"Stack trace: {ex.StackTrace}");
                 return new List<Movie>();
             }
         }
 
-        // Delete the cache file (useful for testing or refresh)
         public void ClearCache()
         {
             if (File.Exists(_cacheFilePath))
             {
                 File.Delete(_cacheFilePath);
+                System.Diagnostics.Debug.WriteLine("Cache cleared");
             }
         }
     }
