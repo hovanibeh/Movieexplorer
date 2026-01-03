@@ -6,21 +6,22 @@
 
     <Grid RowDefinitions="Auto,Auto,*" Padding="10">
 
-        <!-- Row 0: Search Bar -->
         <SearchBar x:Name="SearchBar" 
-                   Grid.Row="0"
-                   Placeholder="Search movies by title or genre..."
-                   TextChanged="OnSearchTextChanged"
-                   Margin="5"/>
+           Grid.Row="0"
+           Placeholder="Search movies by title or genre..."
+           TextChanged="OnSearchTextChanged"
+           TextColor="Purple"
+           PlaceholderColor="Gray"
+           Margin="5"/>
 
-        <!-- Row 1: Filter Buttons -->
+       
         <HorizontalStackLayout Grid.Row="1" Spacing="10" Margin="5" HorizontalOptions="Center">
             <Button Text="All Movies" Clicked="OnShowAllClicked"/>
             <Button Text="Sort by Year" Clicked="OnSortByYearClicked"/>
             <Button Text="Sort by Rating" Clicked="OnSortByRatingClicked"/>
         </HorizontalStackLayout>
 
-        <!-- Row 2: Movies List -->
+     
         <CollectionView x:Name="MoviesCollectionView" 
                         Grid.Row="2"
                         SelectionMode="Single"
@@ -35,14 +36,14 @@
 
                         <Grid ColumnDefinitions="60,*,Auto" RowDefinitions="Auto,Auto,Auto">
 
-                            <!-- Emoji -->
+                           
                             <Label Grid.Column="0" Grid.RowSpan="3"
                                    Text="{Binding Emoji}" 
                                    FontSize="48"
                                    VerticalOptions="Center"
                                    HorizontalOptions="Center"/>
 
-                            <!-- Movie Title - BLACK TEXT -->
+                            
                             <Label Grid.Column="1" Grid.Row="0"
                                    Text="{Binding Title}" 
                                    FontSize="18" 
@@ -50,7 +51,7 @@
                                    TextColor="Black"
                                    Margin="10,0,0,0"/>
 
-                            <!-- Year and Rating - BLACK TEXT -->
+                           
                             <Label Grid.Column="1" Grid.Row="1"
                                    FontSize="14" 
                                    Margin="10,5,0,0">
@@ -63,7 +64,7 @@
                                 </Label.FormattedText>
                             </Label>
 
-                            <!-- Genres - GREY TEXT -->
+                            <!-- Genres -->
                             <Label Grid.Column="1" Grid.Row="2"
                                    Text="{Binding GenresString}" 
                                    FontSize="12"
@@ -83,7 +84,7 @@
             </CollectionView.ItemTemplate>
         </CollectionView>
 
-        <!-- Loading spinner -->
+        
         <ActivityIndicator x:Name="LoadingIndicator" 
                           Grid.Row="2"
                           IsRunning="False"

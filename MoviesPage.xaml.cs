@@ -8,7 +8,7 @@ namespace MovieExplorer.Pages
         // Store all movies from service
         private List<Movie> _allMovies = new List<Movie>();
 
-        // Movies currently shown on screen (can be filtered)
+        
         private ObservableCollection<Movie> _displayedMovies = new ObservableCollection<Movie>();
 
         public MoviesPage()
@@ -85,7 +85,7 @@ namespace MovieExplorer.Pages
             System.Diagnostics.Debug.WriteLine($"DisplayedMovies now has {_displayedMovies.Count} items");
         }
 
-        // Called when user types in search bar - FIXED VERSION FOR GENRE SEARCH!
+     
         private void OnSearchTextChanged(object sender, TextChangedEventArgs e)
         {
             string searchText = e.NewTextValue?.ToLower()?.Trim() ?? string.Empty;
@@ -108,7 +108,7 @@ namespace MovieExplorer.Pages
                     bool titleMatch = !string.IsNullOrEmpty(m.Title) &&
                                      m.Title.ToLower().Contains(searchText);
 
-                    // Search in all genres - IMPROVED VERSION
+                    // Search in all genres 
                     bool genreMatch = false;
                     if (m.Genres != null && m.Genres.Count > 0)
                     {
@@ -116,7 +116,7 @@ namespace MovieExplorer.Pages
                             !string.IsNullOrEmpty(g) &&
                             g.ToLower().Contains(searchText));
 
-                        // DEBUG: Show genres for each movie
+                        // Show genres for each movie
                         if (genreMatch)
                         {
                             System.Diagnostics.Debug.WriteLine($"  ✓ MATCH: {m.Title} - Genres: {string.Join(", ", m.Genres)}");
